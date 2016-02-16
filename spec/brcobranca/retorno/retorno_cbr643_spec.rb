@@ -19,7 +19,7 @@ RSpec.describe Brcobranca::Retorno::RetornoCbr643 do
   end
 
   it 'Transforma arquivo de retorno em objetos de retorno excluindo a primeira linha com a opção :except' do
-    pagamentos = described_class.load_lines(@arquivo, except: [1])
+    pagamentos = described_class.load_lines(@arquivo, :except => [1])
     expect(pagamentos.first.sequencial).to eql('000002')
     expect(pagamentos.first.agencia_com_dv).to eql('33251')
     expect(pagamentos.first.cedente_com_dv).to eql('000289353')
@@ -43,7 +43,7 @@ RSpec.describe Brcobranca::Retorno::RetornoCbr643 do
   # end
 
   it 'Transforma arquivo de retorno em objetos de retorno excluindo a primeira linha com a opção :except em regex' do
-    pagamentos = described_class.load_lines(@arquivo, except: /^[^7]/)
+    pagamentos = described_class.load_lines(@arquivo, :except => /^[^7]/)
     expect(pagamentos.first.sequencial).to eql('000002')
     expect(pagamentos.first.agencia_com_dv).to eql('33251')
     expect(pagamentos.first.cedente_com_dv).to eql('000289353')

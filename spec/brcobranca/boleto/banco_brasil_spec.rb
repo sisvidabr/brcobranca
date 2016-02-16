@@ -4,16 +4,16 @@ require 'spec_helper'
 RSpec.describe Brcobranca::Boleto::BancoBrasil do #:nodoc:[all]
   before do
     @valid_attributes = {
-      valor: 0.0,
-      local_pagamento: 'QUALQUER BANCO ATÉ O VENCIMENTO',
-      cedente: 'Kivanio Barbosa',
-      documento_cedente: '12345678912',
-      sacado: 'Claudio Pozzebom',
-      sacado_documento: '12345678900',
-      agencia: '4042',
-      conta_corrente: '61900',
-      convenio: 12_387_989,
-      numero_documento: '777700168'
+      :valor => 0.0,
+      :local_pagamento => 'QUALQUER BANCO ATÉ O VENCIMENTO',
+      :cedente => 'Kivanio Barbosa',
+      :documento_cedente => '12345678912',
+      :sacado => 'Claudio Pozzebom',
+      :sacado_documento => '12345678900',
+      :agencia => '4042',
+      :conta_corrente => '61900',
+      :convenio => 12_387_989,
+      :numero_documento => '777700168'
     }
   end
 

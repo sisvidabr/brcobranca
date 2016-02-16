@@ -3,26 +3,26 @@ require 'spec_helper'
 
 RSpec.describe Brcobranca::Remessa::Cnab400::Santander do
   let(:pagamento) do
-    Brcobranca::Remessa::Pagamento.new(valor: 199.9,
-      data_vencimento: Date.today,
-      nosso_numero: 123,
-      documento_sacado: '12345678901',
-      nome_sacado: 'PABLO DIEGO JOSÉ FRANCISCO DE PAULA JUAN NEPOMUCENO MARÍA DE LOS REMEDIOS CIPRIANO DE LA SANTÍSSIMA TRINIDAD RUIZ Y PICASSO',
-      endereco_sacado: 'RUA RIO GRANDE DO SUL São paulo Minas caçapa da silva junior',
-      bairro_sacado: 'São josé dos quatro apostolos magros',
-      cep_sacado: '12345678',
-      cidade_sacado: 'Santa rita de cássia maria da silva',
-      uf_sacado: 'SP')
+    Brcobranca::Remessa::Pagamento.new(:valor => 199.9,
+      :data_vencimento => Date.today,
+      :nosso_numero => 123,
+      :documento_sacado => '12345678901',
+      :nome_sacado => 'PABLO DIEGO JOSÉ FRANCISCO DE PAULA JUAN NEPOMUCENO MARÍA DE LOS REMEDIOS CIPRIANO DE LA SANTÍSSIMA TRINIDAD RUIZ Y PICASSO',
+      :endereco_sacado => 'RUA RIO GRANDE DO SUL São paulo Minas caçapa da silva junior',
+      :bairro_sacado => 'São josé dos quatro apostolos magros',
+      :cep_sacado => '12345678',
+      :cidade_sacado => 'Santa rita de cássia maria da silva',
+      :uf_sacado => 'SP')
   end
   let(:params) do
     {
-      codigo_transmissao: '17777751042700080112',
-      empresa_mae: 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
-      documento_cedente: '12345678910',
-      agencia: '8888',
-      conta_corrente: '000002997',
-      digito_conta: '8',
-      pagamentos: [pagamento]
+      :codigo_transmissao => '17777751042700080112',
+      :empresa_mae => 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
+      :documento_cedente => '12345678910',
+      :agencia => '8888',
+      :conta_corrente => '000002997',
+      :digito_conta => '8',
+      :pagamentos => [pagamento]
     }
   end
   let(:santander) { subject.class.new(params) }
@@ -30,7 +30,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Santander do
   context 'validacoes dos campos' do
     context '@carteira' do
       it 'deve ser invalido se nao possuir uma carteira' do
-        object = subject.class.new(params.merge!(carteira: nil))
+        object = subject.class.new(params.merge!(:carteira => nil))
         expect(object.invalid?).to be true
         expect(object.errors.full_messages).to include('Carteira não pode estar em branco.')
       end
@@ -50,7 +50,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Santander do
 
     context '@documento_cedente' do
       it 'deve ser invalido se nao possuir o documento cedente' do
-        object = subject.class.new(params.merge!(documento_cedente: nil))
+        object = subject.class.new(params.merge!(:documento_cedente => nil))
         expect(object.invalid?).to be true
         expect(object.errors.full_messages).to include('Documento cedente não pode estar em branco.')
       end
@@ -64,7 +64,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Santander do
 
     context '@codigo_transmissao' do
       it 'deve ser invalido se nao possuir o codigo_transmissao' do
-        object = subject.class.new(params.merge!(codigo_transmissao: nil))
+        object = subject.class.new(params.merge!(:codigo_transmissao => nil))
         expect(object.invalid?).to be true
         expect(object.errors.full_messages).to include('Codigo transmissao não pode estar em branco.')
       end

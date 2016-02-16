@@ -4,20 +4,20 @@ require 'spec_helper'
 RSpec.describe Brcobranca::Boleto::Base do
   before do
     @valid_attributes = {
-      especie_documento: 'DM',
-      moeda: '9',
-      aceite: 'S',
-      quantidade: 1,
-      valor: 0.0,
-      local_pagamento: 'QUALQUER BANCO ATÉ O VENCIMENTO',
-      cedente: 'Kivanio Barbosa',
-      documento_cedente: '12345678912',
-      sacado: 'Claudio Pozzebom',
-      sacado_documento: '12345678900',
-      agencia: '4042',
-      conta_corrente: '61900',
-      convenio: 12_387_989,
-      numero_documento: '777700168'
+      :especie_documento => 'DM',
+      :moeda => '9',
+      :aceite => 'S',
+      :quantidade => 1,
+      :valor => 0.0,
+      :local_pagamento => 'QUALQUER BANCO ATÉ O VENCIMENTO',
+      :cedente => 'Kivanio Barbosa',
+      :documento_cedente => '12345678912',
+      :sacado => 'Claudio Pozzebom',
+      :sacado_documento => '12345678900',
+      :agencia => '4042',
+      :conta_corrente => '61900',
+      :convenio => 12_387_989,
+      :numero_documento => '777700168'
     }
   end
 
@@ -156,12 +156,12 @@ RSpec.describe Brcobranca::Boleto::Base do
   end
 
   it 'data_documento em string' do
-    boleto_novo = Brcobranca::Boleto::Base.new(data_documento: '2015-06-15')
+    boleto_novo = Brcobranca::Boleto::Base.new(:data_documento => '2015-06-15')
     expect(boleto_novo.data_documento).to eql("2015-06-15")
   end
 
   it 'data_vencimento em string' do
-    boleto_novo = Brcobranca::Boleto::Base.new(data_vencimento: '2015-06-15')
+    boleto_novo = Brcobranca::Boleto::Base.new(:data_vencimento => '2015-06-15')
     expect(boleto_novo.data_vencimento).to eql("2015-06-15")
   end
 end

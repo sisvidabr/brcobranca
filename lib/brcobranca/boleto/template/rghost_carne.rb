@@ -31,7 +31,7 @@ module Brcobranca
         # @see http://wiki.github.com/shairontoledo/rghost/supported-devices-drivers-and-formats Veja mais formatos na documentação do rghost.
         # @see Rghost#modelo_carne Recebe os mesmos parâmetros do Rghost#modelo_carne.
         def to_carne(formato, options = {})
-          modelo_carne(self, options.merge!(formato: formato))
+          modelo_carne(self, options.merge!(:formato => formato))
         end
 
         # Gera o boleto em usando o formato desejado [:pdf, :jpg, :tif, :png, :ps, :laserjet, ... etc]
@@ -52,7 +52,7 @@ module Brcobranca
         def method_missing(m, *args)
           method = m.to_s
           if method.start_with?('to_')
-            modelo_carne(self, (args.first || {}).merge!(formato: method[3..-1]))
+            modelo_carne(self, (args.first || {}).merge!(:formato => method[3..-1]))
           else
             super
           end
@@ -68,7 +68,7 @@ module Brcobranca
         # @option options [Symbol] :resolucao Resolução em pixels.
         # @option options [Symbol] :formato Formato desejado [:pdf, :jpg, :tif, :png, :ps, :laserjet, ... etc]
         def modelo_carne(boleto, options = {})
-          doc = Document.new paper: [21, 9]
+          doc = Document.new :paper => [21, 9]
 
           colunas = calc_colunas 1
           linhas = calc_linhas 0
@@ -83,7 +83,7 @@ module Brcobranca
           # Gerando stream
           formato = (options.delete(:formato) || Brcobranca.configuration.formato)
           resolucao = (options.delete(:resolucao) || Brcobranca.configuration.resolucao)
-          doc.render_stream(formato.to_sym, resolution: resolucao)
+          doc.render_stream(formato.to_sym, :resolution => resolucao)
         end
 
         # Retorna um stream para multiplos boletos pronto para gravação em arquivo.
@@ -94,7 +94,7 @@ module Brcobranca
         # @option options [Symbol] :resolucao Resolução em pixels.
         # @option options [Symbol] :formato Formato desejado [:pdf, :jpg, :tif, :png, :ps, :laserjet, ... etc]
         def modelo_carne_multipage(boletos, options = {})
-          doc = Document.new paper: :A4
+          doc = Document.new :paper => :A4
 
           max_per_page = 3
           curr_page_position = 0
@@ -128,7 +128,7 @@ module Brcobranca
           formato = (options.delete(:formato) || Brcobranca.configuration.formato)
           resolucao = (options.delete(:resolucao) || Brcobranca.configuration.resolucao)
 
-          doc.render_stream(formato.to_sym, resolution: resolucao)
+          doc.render_stream(formato.to_sym, :resolution => resolucao)
         end
 
         # carrega background do boleto
@@ -136,14 +136,14 @@ module Brcobranca
           template_path = File.join(File.dirname(__FILE__), '..', '..', 'arquivos', 'templates', 'modelo_carne.eps')
           fail 'Não foi possível encontrar o template. Verifique o caminho' unless File.exist?(template_path)
 
-          doc.image template_path, x: 1, y: margin_bottom
+          doc.image template_path, :x => 1, :y => margin_bottom
         end
 
         # define os tamanhos
         def modelo_carne_define_tags(doc)
           doc.define_tags do
-            tag :grande, size: 13
-            tag :media, size: 10
+            tag :grande, :size => 13
+            tag :media, :size => 10
           end
         end
 
@@ -172,140 +172,140 @@ module Brcobranca
         # aplica dados do lado esquerdo
         def modelo_carne_build_data_left(doc, boleto, colunas, linhas)
           # LOGOTIPO do BANCO
-          doc.image boleto.logotipo, x: (colunas[0] - 0.11), y: linhas[0]
+          doc.image boleto.logotipo, :x => (colunas[0] - 0.11), :y => linhas[0]
 
           # Dados
 
           # Numero do banco
-          doc.moveto x: colunas[1], y: linhas[0]
+          doc.moveto :x => colunas[1], :y => linhas[0]
           doc.show "#{boleto.banco}-#{boleto.banco_dv}"
 
           # vencimento
-          doc.moveto x: colunas[0], y: linhas[1]
+          doc.moveto :x => colunas[0], :y => linhas[1]
           doc.show boleto.data_vencimento.to_s_br
 
           # agencia/codigo cedente
-          doc.moveto x: colunas[0], y: linhas[2]
+          doc.moveto :x => colunas[0], :y => linhas[2]
           doc.show boleto.agencia_conta_boleto
 
           # nosso numero
-          doc.moveto x: colunas[0], y: linhas[3]
+          doc.moveto :x => colunas[0], :y => linhas[3]
           doc.show boleto.nosso_numero_boleto
 
           # valor do documento
-          doc.moveto x: colunas[0], y: linhas[4]
+          doc.moveto :x => colunas[0], :y => linhas[4]
           doc.show boleto.valor_documento.to_currency
 
           # numero documento
-          doc.moveto x: colunas[0], y: linhas[11]
+          doc.moveto :x => colunas[0], :y => linhas[11]
           doc.show boleto.numero_documento
 
           # sacado
-          doc.moveto x: colunas[0], y: linhas[13]
+          doc.moveto :x => colunas[0], :y => linhas[13]
           doc.show "#{boleto.sacado}"
         end
 
         # aplica dados do lado direito
         def modelo_carne_build_data_right(doc, boleto, colunas, linhas)
           # LOGOTIPO do BANCO
-          doc.image boleto.logotipo, x: (colunas[2] - 0.11), y: linhas[0]
+          doc.image boleto.logotipo, :x => (colunas[2] - 0.11), :y => linhas[0]
 
           # Numero do banco
-          doc.moveto x: colunas[4], y: linhas[0]
-          doc.show "#{boleto.banco}-#{boleto.banco_dv}", tag: :grande
+          doc.moveto :x => colunas[4], :y => linhas[0]
+          doc.show "#{boleto.banco}-#{boleto.banco_dv}", :tag => :grande
 
           # linha digitavel
-          doc.moveto x: colunas[6], y: linhas[0]
-          doc.show boleto.codigo_barras.linha_digitavel, tag: :media
+          doc.moveto :x => colunas[6], :y => linhas[0]
+          doc.show boleto.codigo_barras.linha_digitavel, :tag => :media
 
           # local de pagamento
-          doc.moveto x: colunas[2], y: linhas[1]
+          doc.moveto :x => colunas[2], :y => linhas[1]
           doc.show boleto.local_pagamento
 
           # vencimento
-          doc.moveto x: colunas[11], y: linhas[1]
+          doc.moveto :x => colunas[11], :y => linhas[1]
           doc.show boleto.data_vencimento.to_s_br
 
           # cedente
-          doc.moveto x: colunas[2], y: linhas[2]
+          doc.moveto :x => colunas[2], :y => linhas[2]
           doc.show boleto.cedente
 
           # agencia/codigo cedente
-          doc.moveto x: colunas[11], y: linhas[2]
+          doc.moveto :x => colunas[11], :y => linhas[2]
           doc.show boleto.agencia_conta_boleto
 
           # data do documento
-          doc.moveto x: colunas[2], y: linhas[3]
+          doc.moveto :x => colunas[2], :y => linhas[3]
           doc.show boleto.data_documento.to_s_br if boleto.data_documento
 
           # numero documento
-          doc.moveto x: colunas[3], y: linhas[3]
+          doc.moveto :x => colunas[3], :y => linhas[3]
           doc.show boleto.numero_documento
 
           # especie doc.
-          doc.moveto x: colunas[8], y: linhas[3]
+          doc.moveto :x => colunas[8], :y => linhas[3]
           doc.show boleto.especie_documento
 
           # aceite
-          doc.moveto x: colunas[9], y: linhas[3]
+          doc.moveto :x => colunas[9], :y => linhas[3]
           doc.show boleto.aceite
 
           # dt processamento
-          doc.moveto x: colunas[10], y: linhas[3]
+          doc.moveto :x => colunas[10], :y => linhas[3]
           doc.show boleto.data_processamento.to_s_br if boleto.data_processamento
 
           # nosso numero
-          doc.moveto x: colunas[11], y: linhas[3]
+          doc.moveto :x => colunas[11], :y => linhas[3]
           doc.show boleto.nosso_numero_boleto
 
           # uso do banco
           ## nada...
 
           # carteira
-          doc.moveto x: colunas[3], y: linhas[4]
+          doc.moveto :x => colunas[3], :y => linhas[4]
           doc.show boleto.carteira
 
           # especie
-          doc.moveto x: colunas[5], y: linhas[4]
+          doc.moveto :x => colunas[5], :y => linhas[4]
           doc.show boleto.especie
 
           # quantidade
-          doc.moveto x: colunas[7], y: linhas[4]
+          doc.moveto :x => colunas[7], :y => linhas[4]
           doc.show boleto.quantidade
 
           # valor documento
-          doc.moveto x: colunas[8], y: linhas[4]
+          doc.moveto :x => colunas[8], :y => linhas[4]
           doc.show boleto.valor_documento.to_currency
 
           # valor do documento
-          doc.moveto x: colunas[11], y: linhas[4]
+          doc.moveto :x => colunas[11], :y => linhas[4]
           doc.show boleto.valor_documento.to_currency
 
           # Instruções
-          doc.moveto x: colunas[2], y: linhas[5]
+          doc.moveto :x => colunas[2], :y => linhas[5]
           doc.show boleto.instrucao1
-          doc.moveto x: colunas[2], y: linhas[6]
+          doc.moveto :x => colunas[2], :y => linhas[6]
           doc.show boleto.instrucao2
-          doc.moveto x: colunas[2], y: linhas[7]
+          doc.moveto :x => colunas[2], :y => linhas[7]
           doc.show boleto.instrucao3
-          doc.moveto x: colunas[2], y: linhas[8]
+          doc.moveto :x => colunas[2], :y => linhas[8]
           doc.show boleto.instrucao4
-          doc.moveto x: colunas[2], y: linhas[9]
+          doc.moveto :x => colunas[2], :y => linhas[9]
           doc.show boleto.instrucao5
-          doc.moveto x: colunas[2], y: linhas[10]
+          doc.moveto :x => colunas[2], :y => linhas[10]
           doc.show boleto.instrucao6
 
           # Sacado
-          doc.moveto x: colunas[2], y: linhas[11]
+          doc.moveto :x => colunas[2], :y => linhas[11]
           doc.show "#{boleto.sacado} - #{boleto.sacado_documento.formata_documento}" if boleto.sacado && boleto.sacado_documento
 
           # Sacado endereço
-          doc.moveto x: colunas[2], y: linhas[12]
+          doc.moveto :x => colunas[2], :y => linhas[12]
           doc.show "#{boleto.sacado_endereco}"
 
           # codigo de barras
           # Gerando codigo de barra com rghost_barcode
-          doc.barcode_interleaved2of5(boleto.codigo_barras, width: '10.3 cm', height: '1.2 cm', x: colunas[2], y: linhas[14]) if boleto.codigo_barras
+          doc.barcode_interleaved2of5(boleto.codigo_barras, :width => '10.3 cm', :height => '1.2 cm', :x => colunas[2], :y => linhas[14]) if boleto.codigo_barras
         end
       end # Base
     end

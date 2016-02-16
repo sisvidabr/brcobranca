@@ -4,15 +4,15 @@ require 'spec_helper'
 RSpec.describe Brcobranca::Boleto::Itau do
   before do
     @valid_attributes = {
-      valor: 0.0,
-      cedente: 'Kivanio Barbosa',
-      documento_cedente: '12345678912',
-      sacado: 'Claudio Pozzebom',
-      sacado_documento: '12345678900',
-      agencia: '0810',
-      conta_corrente: '53678',
-      convenio: 12_387,
-      numero_documento: '12345678'
+      :valor => 0.0,
+      :cedente => 'Kivanio Barbosa',
+      :documento_cedente => '12345678912',
+      :sacado => 'Claudio Pozzebom',
+      :sacado_documento => '12345678900',
+      :agencia => '0810',
+      :conta_corrente => '53678',
+      :convenio => 12_387,
+      :numero_documento => '12345678'
     }
   end
 

@@ -1,54 +1,54 @@
 # -*- encoding: utf-8 -*-
 shared_examples_for 'cnab400' do
   let(:pagamento) do
-    Brcobranca::Remessa::Pagamento.new(valor: 199.9,
-      data_vencimento: Date.today,
-      nosso_numero: 123,
-      documento_sacado: '12345678901',
-      nome_sacado: 'PABLO DIEGO JOSÉ FRANCISCO DE PAULA JUAN NEPOMUCENO MARÍA DE LOS REMEDIOS CIPRIANO DE LA SANTÍSSIMA TRINIDAD RUIZ Y PICASSO',
-      endereco_sacado: 'RUA RIO GRANDE DO SUL São paulo Minas caçapa da silva junior',
-      bairro_sacado: 'São josé dos quatro apostolos magros',
-      cep_sacado: '12345678',
-      cidade_sacado: 'Santa rita de cássia maria da silva',
-      nome_avalista: 'ISABEL CRISTINA LEOPOLDINA ALGUSTA MIGUELA GABRIELA RAFAELA GONZAGA DE BRAGANÇA E BOURBON',
-      uf_sacado: 'SP')
+    Brcobranca::Remessa::Pagamento.new(:valor => 199.9,
+      :data_vencimento => Date.today,
+      :nosso_numero => 123,
+      :documento_sacado => '12345678901',
+      :nome_sacado => 'PABLO DIEGO JOSÉ FRANCISCO DE PAULA JUAN NEPOMUCENO MARÍA DE LOS REMEDIOS CIPRIANO DE LA SANTÍSSIMA TRINIDAD RUIZ Y PICASSO',
+      :endereco_sacado => 'RUA RIO GRANDE DO SUL São paulo Minas caçapa da silva junior',
+      :bairro_sacado => 'São josé dos quatro apostolos magros',
+      :cep_sacado => '12345678',
+      :cidade_sacado => 'Santa rita de cássia maria da silva',
+      :nome_avalista => 'ISABEL CRISTINA LEOPOLDINA ALGUSTA MIGUELA GABRIELA RAFAELA GONZAGA DE BRAGANÇA E BOURBON',
+      :uf_sacado => 'SP')
   end
   let(:params) do
     if subject.class == Brcobranca::Remessa::Cnab400::Bradesco
-      { carteira: '01',
-        agencia: '12345',
-        conta_corrente: '1234567',
-        digito_conta: '1',
-        empresa_mae: 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
-        sequencial_remessa: '1',
-        codigo_empresa: '123',
-        pagamentos: [pagamento] }
+      { :carteira => '01',
+        :agencia => '12345',
+        :conta_corrente => '1234567',
+        :digito_conta => '1',
+        :empresa_mae => 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
+        :sequencial_remessa => '1',
+        :codigo_empresa => '123',
+        :pagamentos => [pagamento] }
     elsif subject.class == Brcobranca::Remessa::Cnab400::Citibank
       {
-        portfolio: '17777751042700080112',
-        carteira: '1',
-        empresa_mae: 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
-        documento_cedente: '12345678910',
-        pagamentos: [pagamento]
+        :portfolio => '17777751042700080112',
+        :carteira => '1',
+        :empresa_mae => 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
+        :documento_cedente => '12345678910',
+        :pagamentos => [pagamento]
       }
     elsif subject.class == Brcobranca::Remessa::Cnab400::Santander
       {
-        codigo_transmissao: '17777751042700080112',
-        empresa_mae: 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
-        documento_cedente: '12345678910',
-        agencia: '8888',
-        conta_corrente: '000002997',
-        digito_conta: '8',
-        pagamentos: [pagamento]
+        :codigo_transmissao => '17777751042700080112',
+        :empresa_mae => 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
+        :documento_cedente => '12345678910',
+        :agencia => '8888',
+        :conta_corrente => '000002997',
+        :digito_conta => '8',
+        :pagamentos => [pagamento]
       }
     else
-      { carteira: '123',
-        agencia: '1234',
-        conta_corrente: '12345',
-        digito_conta: '1',
-        empresa_mae: 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
-        documento_cedente: '12345678910',
-        pagamentos: [pagamento] }
+      { :carteira => '123',
+        :agencia => '1234',
+        :conta_corrente => '12345',
+        :digito_conta => '1',
+        :empresa_mae => 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
+        :documento_cedente => '12345678910',
+        :pagamentos => [pagamento] }
     end
   end
   let(:objeto) { subject.class.new(params) }

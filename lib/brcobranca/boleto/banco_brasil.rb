@@ -2,10 +2,10 @@
 module Brcobranca
   module Boleto
     class BancoBrasil < Base # Banco do Brasil
-      validates_length_of :agencia, maximum: 4, message: 'deve ser menor ou igual a 4 dígitos.'
-      validates_length_of :conta_corrente, maximum: 8, message: 'deve ser menor ou igual a 8 dígitos.'
-      validates_length_of :carteira, maximum: 2, message: 'deve ser menor ou igual a 2 dígitos.'
-      validates_length_of :convenio, in: 4..8, message: 'não existente para este banco.'
+      validates_length_of :agencia, :maximum => 4, :message => 'deve ser menor ou igual a 4 dígitos.'
+      validates_length_of :conta_corrente, :maximum => 8, :message => 'deve ser menor ou igual a 8 dígitos.'
+      validates_length_of :carteira, :maximum => 2, :message => 'deve ser menor ou igual a 2 dígitos.'
+      validates_length_of :convenio, :in => 4..8, :message => 'não existente para este banco.'
 
       validates_each :numero_documento do |record, attr, value|
         valor_tamanho = value.to_s.size
@@ -28,7 +28,7 @@ module Brcobranca
       # Nova instancia do BancoBrasil
       # @param (see Brcobranca::Boleto::Base#initialize)
       def initialize(campos = {})
-        campos = { carteira: '18', codigo_servico: false }.merge!(campos)
+        campos = { :carteira => '18', :codigo_servico => false }.merge!(campos)
         super(campos)
       end
 
@@ -50,14 +50,14 @@ module Brcobranca
       #
       # @return [String] 1 caracteres numéricos.
       def banco_dv
-        banco.modulo11(mapeamento: { 10 => 'X' })
+        banco.modulo11(:mapeamento => { 10 => 'X' })
       end
 
       # Retorna dígito verificador da agência
       #
       # @return [String] 1 caracteres numéricos.
       def agencia_dv
-        agencia.modulo11(mapeamento: { 10 => 'X' })
+        agencia.modulo11(:mapeamento => { 10 => 'X' })
       end
 
       # Conta corrente
@@ -69,7 +69,7 @@ module Brcobranca
       # Dígito verificador da conta corrente
       # @return [String] 1 caracteres numéricos.
       def conta_corrente_dv
-        conta_corrente.modulo11(mapeamento: { 10 => 'X' })
+        conta_corrente.modulo11(:mapeamento => { 10 => 'X' })
       end
 
       # Número seqüencial utilizado para identificar o boleto.
@@ -111,7 +111,7 @@ module Brcobranca
       # @return [String] 1 caracteres numéricos.
       # @see BancoBrasil#numero_documento
       def nosso_numero_dv
-        "#{convenio}#{numero_documento}".modulo11(mapeamento: { 10 => 'X' })
+        "#{convenio}#{numero_documento}".modulo11(:mapeamento => { 10 => 'X' })
       end
 
       # Nosso número para exibir no boleto.

@@ -82,7 +82,7 @@ RSpec.describe Brcobranca::Calculo do
   describe 'Módulo 11 de 9 até 2 trocando 10 por X' do
 
     def modulo_11_de_9_ate_2_map_10_X(numero)
-      numero.modulo11(mapeamento: { 10 => 'X' })
+      numero.modulo11(:mapeamento => { 10 => 'X' })
     end
 
     it 'Calcula o resultado' do
@@ -110,8 +110,8 @@ RSpec.describe Brcobranca::Calculo do
   describe 'Módulo 11 de 2 até 9' do
     def modulo_11_de_2_ate_9(numero)
       numero.modulo11(
-        multiplicador: (2..9).to_a,
-        mapeamento: { 0 => 1, 10 => 1, 11 => 1 }
+        :multiplicador => (2..9).to_a,
+        :mapeamento => { 0 => 1, 10 => 1, 11 => 1 }
       ) { |total| 11 - (total % 11) }
     end
 
@@ -135,8 +135,8 @@ RSpec.describe Brcobranca::Calculo do
   describe 'Módulo 11 com multiplicadores 3, 7, 9, 1, trocando 11 e 10 por 0' do
     def modulo_11_com_3_7_9_1_map_10_e_10_por_0(numero)
       numero.modulo11(
-        multiplicador: [3, 7, 9, 1],
-        mapeamento: { 10 => 0, 11 => 0 }
+        :multiplicador => [3, 7, 9, 1],
+        :mapeamento => { 10 => 0, 11 => 0 }
       ) { |t| 11 - (t % 11) }
     end
 
@@ -149,8 +149,8 @@ RSpec.describe Brcobranca::Calculo do
   describe 'Módulo 11 de 2 até 7 trocando 10 por P e 11 por 0' do
     def modulo_11_de_2_ate_7_map_10_P_e_11_0(numero)
       numero.modulo11(
-        multiplicador: [2, 3, 4, 5, 6, 7],
-        mapeamento: { 10 => 'P', 11 => 0 }
+        :multiplicador => [2, 3, 4, 5, 6, 7],
+        :mapeamento => { 10 => 'P', 11 => 0 }
       ) { |total| 11 - (total % 11) }
     end
 

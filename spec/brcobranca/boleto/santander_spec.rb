@@ -4,15 +4,15 @@ require 'spec_helper'
 RSpec.describe Brcobranca::Boleto::Santander do
   before do
     @valid_attributes = {
-      valor: 25.0,
-      cedente: 'Kivanio Barbosa',
-      documento_cedente: '12345678912',
-      sacado: 'Claudio Pozzebom',
-      sacado_documento: '12345678900',
-      agencia: '0059',
-      convenio: 1_899_775,
-      numero_documento: '90000267',
-      conta_corrente: '013000123'
+      :valor => 25.0,
+      :cedente => 'Kivanio Barbosa',
+      :documento_cedente => '12345678912',
+      :sacado => 'Claudio Pozzebom',
+      :sacado_documento => '12345678900',
+      :agencia => '0059',
+      :convenio => 1_899_775,
+      :numero_documento => '90000267',
+      :conta_corrente => '013000123'
     }
   end
 

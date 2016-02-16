@@ -10,7 +10,7 @@ module Brcobranca
         REGEX_DE_EXCLUSAO_DE_REGISTROS_NAO_T_OU_U = /^((?!^.{7}3.{5}[T|U].*$).)*$/
 
         def self.load_lines(file, options = {})
-          default_options = { except: REGEX_DE_EXCLUSAO_DE_REGISTROS_NAO_T_OU_U }
+          default_options = { :except => REGEX_DE_EXCLUSAO_DE_REGISTROS_NAO_T_OU_U }
           options = default_options.merge!(options)
 
           Line.load_lines(file, options).each_slice(2).reduce([]) do |retornos, cnab_lines|

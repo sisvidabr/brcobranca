@@ -3,33 +3,33 @@ require 'spec_helper'
 
 RSpec.describe Brcobranca::Remessa::Cnab400::Bradesco do
   let(:pagamento) do
-    Brcobranca::Remessa::Pagamento.new(valor: 199.9,
-      data_vencimento: Date.today,
-      nosso_numero: 123,
-      documento_sacado: '12345678901',
-      nome_sacado: 'PABLO DIEGO JOSÉ FRANCISCO DE PAULA JUAN NEPOMUCENO MARÍA DE LOS REMEDIOS CIPRIANO DE LA SANTÍSSIMA TRINIDAD RUIZ Y PICASSO',
-      endereco_sacado: 'RUA RIO GRANDE DO SUL São paulo Minas caçapa da silva junior',
-      bairro_sacado: 'São josé dos quatro apostolos magros',
-      cep_sacado: '12345678',
-      cidade_sacado: 'Santa rita de cássia maria da silva',
-      uf_sacado: 'SP')
+    Brcobranca::Remessa::Pagamento.new(:valor => 199.9,
+      :data_vencimento => Date.today,
+      :nosso_numero => 123,
+      :documento_sacado => '12345678901',
+      :nome_sacado => 'PABLO DIEGO JOSÉ FRANCISCO DE PAULA JUAN NEPOMUCENO MARÍA DE LOS REMEDIOS CIPRIANO DE LA SANTÍSSIMA TRINIDAD RUIZ Y PICASSO',
+      :endereco_sacado => 'RUA RIO GRANDE DO SUL São paulo Minas caçapa da silva junior',
+      :bairro_sacado => 'São josé dos quatro apostolos magros',
+      :cep_sacado => '12345678',
+      :cidade_sacado => 'Santa rita de cássia maria da silva',
+      :uf_sacado => 'SP')
   end
   let(:params) do
-    { carteira: '01',
-      agencia: '12345',
-      conta_corrente: '1234567',
-      digito_conta: '1',
-      empresa_mae: 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
-      sequencial_remessa: '1',
-      codigo_empresa: '123',
-      pagamentos: [pagamento] }
+    { :carteira => '01',
+      :agencia => '12345',
+      :conta_corrente => '1234567',
+      :digito_conta => '1',
+      :empresa_mae => 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
+      :sequencial_remessa => '1',
+      :codigo_empresa => '123',
+      :pagamentos => [pagamento] }
   end
   let(:bradesco) { subject.class.new(params) }
 
   context 'validacoes dos campos' do
     context '@agencia' do
       it 'deve ser invalido se nao possuir uma agencia' do
-        objeto = subject.class.new(params.merge!(agencia: nil))
+        objeto = subject.class.new(params.merge!(:agencia => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Agencia não pode estar em branco.')
       end
@@ -43,7 +43,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Bradesco do
 
     context '@digito_conta' do
       it 'deve ser invalido se nao possuir um digito da conta corrente' do
-        objeto = subject.class.new(params.merge!(digito_conta: nil))
+        objeto = subject.class.new(params.merge!(:digito_conta => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Digito conta não pode estar em branco.')
       end
@@ -57,7 +57,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Bradesco do
 
     context '@conta_corrente' do
       it 'deve ser invalido se nao possuir uma conta corrente' do
-        objeto = subject.class.new(params.merge!(conta_corrente: nil))
+        objeto = subject.class.new(params.merge!(:conta_corrente => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Conta corrente não pode estar em branco.')
       end
@@ -71,7 +71,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Bradesco do
 
     context '@carteira' do
       it 'deve ser invalido se nao possuir uma carteira' do
-        objeto = subject.class.new(params.merge!(carteira: nil))
+        objeto = subject.class.new(params.merge!(:carteira => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Carteira não pode estar em branco.')
       end
@@ -85,7 +85,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Bradesco do
 
     context '@sequencial_remessa' do
       it 'deve ser invalido se nao possuir um num. sequencial de remessa' do
-        objeto = subject.class.new(params.merge!(sequencial_remessa: nil))
+        objeto = subject.class.new(params.merge!(:sequencial_remessa => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Sequencial remessa não pode estar em branco.')
       end
@@ -99,7 +99,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Bradesco do
 
     context '@codigo_empresa' do
       it 'deve ser invalido se nao possuir um codigo da empresa' do
-        objeto = subject.class.new(params.merge!(codigo_empresa: nil))
+        objeto = subject.class.new(params.merge!(:codigo_empresa => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Codigo empresa não pode estar em branco.')
       end

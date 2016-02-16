@@ -3,31 +3,31 @@ require 'spec_helper'
 
 RSpec.describe Brcobranca::Remessa::Cnab240::Base do
   let(:pagamento) do
-    Brcobranca::Remessa::Pagamento.new(valor: 199.9,
-      data_vencimento: Date.today,
-      nosso_numero: 123,
-      documento_sacado: '12345678901',
-      nome_sacado: 'PABLO DIEGO JOSÉ FRANCISCO DE PAULA JUAN NEPOMUCENO MARÍA DE LOS REMEDIOS CIPRIANO DE LA SANTÍSSIMA TRINIDAD RUIZ Y PICASSO',
-      endereco_sacado: 'RUA RIO GRANDE DO SUL São paulo Minas caçapa da silva junior',
-      bairro_sacado: 'São josé dos quatro apostolos magros',
-      cep_sacado: '12345678',
-      cidade_sacado: 'Santa rita de cássia maria da silva',
-      uf_sacado: 'SP')
+    Brcobranca::Remessa::Pagamento.new(:valor => 199.9,
+      :data_vencimento => Date.today,
+      :nosso_numero => 123,
+      :documento_sacado => '12345678901',
+      :nome_sacado => 'PABLO DIEGO JOSÉ FRANCISCO DE PAULA JUAN NEPOMUCENO MARÍA DE LOS REMEDIOS CIPRIANO DE LA SANTÍSSIMA TRINIDAD RUIZ Y PICASSO',
+      :endereco_sacado => 'RUA RIO GRANDE DO SUL São paulo Minas caçapa da silva junior',
+      :bairro_sacado => 'São josé dos quatro apostolos magros',
+      :cep_sacado => '12345678',
+      :cidade_sacado => 'Santa rita de cássia maria da silva',
+      :uf_sacado => 'SP')
   end
   let(:params) do
-    { empresa_mae: 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
-      agencia: '123',
-      conta_corrente: '1234',
-      documento_cedente: '12345678901',
-      convenio: '123',
-      pagamentos: [pagamento] }
+    { :empresa_mae => 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
+      :agencia => '123',
+      :conta_corrente => '1234',
+      :documento_cedente => '12345678901',
+      :convenio => '123',
+      :pagamentos => [pagamento] }
   end
   let(:cnab240) { subject.class.new(params) }
 
   context 'validacoes' do
     context '@agencia' do
       it 'deve ser invalido se nao possuir uma agencia' do
-        objeto = subject.class.new(params.merge!(agencia: nil))
+        objeto = subject.class.new(params.merge!(:agencia => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Agencia não pode estar em branco.')
       end
@@ -35,7 +35,7 @@ RSpec.describe Brcobranca::Remessa::Cnab240::Base do
 
     context '@conta_corrente' do
       it 'deve ser invalido se nao possuir uma conta corrente' do
-        objeto = subject.class.new(params.merge!(conta_corrente: nil))
+        objeto = subject.class.new(params.merge!(:conta_corrente => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Conta corrente não pode estar em branco.')
       end
@@ -43,7 +43,7 @@ RSpec.describe Brcobranca::Remessa::Cnab240::Base do
 
     context '@documento_cedente' do
       it 'deve ser invalido se nao possuir o documento do cedente' do
-        objeto = subject.class.new(params.merge!(documento_cedente: nil))
+        objeto = subject.class.new(params.merge!(:documento_cedente => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Documento cedente não pode estar em branco.')
       end

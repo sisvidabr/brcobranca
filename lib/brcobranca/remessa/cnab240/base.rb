@@ -32,17 +32,17 @@ module Brcobranca
         # tipo de documento (verificar o padrao nas classes referentes aos bancos)
         attr_accessor :tipo_documento
 
-        validates_presence_of :agencia, :conta_corrente, message: 'não pode estar em branco.'
-        validates_presence_of :documento_cedente, message: 'não pode estar em branco.'
-        validates_length_of :codigo_carteira, is: 1, message: 'deve ter 1 dígito.'
-        validates_length_of :forma_cadastramento, is: 1, message: 'deve ter 1 dígito.'
-        validates_length_of :emissao_boleto, is: 1, message: 'deve ter 1 dígito.'
-        validates_length_of :distribuicao_boleto, is: 1, message: 'deve ter 1 dígito.'
+        validates_presence_of :agencia, :conta_corrente, :message => 'não pode estar em branco.'
+        validates_presence_of :documento_cedente, :message => 'não pode estar em branco.'
+        validates_length_of :codigo_carteira, :is => 1, :message => 'deve ter 1 dígito.'
+        validates_length_of :forma_cadastramento, :is => 1, :message => 'deve ter 1 dígito.'
+        validates_length_of :emissao_boleto, :is => 1, :message => 'deve ter 1 dígito.'
+        validates_length_of :distribuicao_boleto, :is => 1, :message => 'deve ter 1 dígito.'
 
         def initialize(campos = {})
-          campos = { codigo_carteira: '1',
-            forma_cadastramento: '1',
-            tipo_documento: ' ' }.merge!(campos)
+          campos = { :codigo_carteira => '1',
+            :forma_cadastramento => '1',
+            :tipo_documento => ' ' }.merge!(campos)
           super(campos)
         end
 

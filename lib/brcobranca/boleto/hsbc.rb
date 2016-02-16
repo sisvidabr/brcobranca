@@ -2,15 +2,15 @@
 module Brcobranca
   module Boleto
     class Hsbc < Base # Banco HSBC
-      validates_inclusion_of :carteira, in: %w( CNR CSB ), message: 'não existente para este banco.'
-      validates_length_of :agencia, maximum: 4, message: 'deve ser menor ou igual a 4 dígitos.'
-      validates_length_of :numero_documento, maximum: 13, message: 'deve ser menor ou igual a 13 dígitos.'
-      validates_length_of :conta_corrente, maximum: 7, message: 'deve ser menor ou igual a 7 dígitos.'
+      validates_inclusion_of :carteira, :in => %w( CNR CSB ), :message => 'não existente para este banco.'
+      validates_length_of :agencia, :maximum => 4, :message => 'deve ser menor ou igual a 4 dígitos.'
+      validates_length_of :numero_documento, :maximum => 13, :message => 'deve ser menor ou igual a 13 dígitos.'
+      validates_length_of :conta_corrente, :maximum => 7, :message => 'deve ser menor ou igual a 7 dígitos.'
 
       # Nova instancia do Hsbc
       # @param (see Brcobranca::Boleto::Base#initialize)
       def initialize(campos = {})
-        campos = { carteira: 'CNR' }.merge!(campos)
+        campos = { :carteira => 'CNR' }.merge!(campos)
         super(campos)
       end
 
@@ -50,9 +50,9 @@ module Brcobranca
             ano = data_vencimento.year.to_s[2..3]
             data = "#{dia}#{mes}#{ano}"
 
-            parte_1 = "#{numero_documento}#{numero_documento.modulo11(mapeamento: { 10 => 0 })}#{codigo_servico}"
+            parte_1 = "#{numero_documento}#{numero_documento.modulo11(:mapeamento => { 10 => 0 })}#{codigo_servico}"
             soma = parte_1.to_i + conta_corrente.to_i + data.to_i
-            "#{parte_1}#{soma.to_s.modulo11(mapeamento: { 10 => 0 })}"
+            "#{parte_1}#{soma.to_s.modulo11(:mapeamento => { 10 => 0 })}"
           else
             self.errors[:data_vencimento] = 'não é uma data.'
             fail Brcobranca::BoletoInvalido.new(self)

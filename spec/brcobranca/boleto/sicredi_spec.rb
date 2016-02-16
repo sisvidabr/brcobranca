@@ -4,19 +4,19 @@ require 'spec_helper'
 RSpec.describe Brcobranca::Boleto::Sicredi do
   before do
     @valid_attributes = {
-      especie_documento: 'A',
-      data_documento: Date.parse('2012-01-18'),
-      valor: 0.0,
-      cedente: 'Kivanio Barbosa',
-      documento_cedente: '12345678912',
-      sacado: 'Claudio Pozzebom',
-      sacado_documento: '12345678900',
-      agencia: '4042',
-      conta_corrente: '61900',
-      convenio: 12_387_989,
-      numero_documento: '00168',
-      posto: '18',
-      byte_idt: '2'
+      :especie_documento => 'A',
+      :data_documento => Date.parse('2012-01-18'),
+      :valor => 0.0,
+      :cedente => 'Kivanio Barbosa',
+      :documento_cedente => '12345678912',
+      :sacado => 'Claudio Pozzebom',
+      :sacado_documento => '12345678900',
+      :agencia => '4042',
+      :conta_corrente => '61900',
+      :convenio => 12_387_989,
+      :numero_documento => '00168',
+      :posto => '18',
+      :byte_idt => '2'
     }
   end
 
@@ -147,14 +147,14 @@ RSpec.describe Brcobranca::Boleto::Sicredi do
 
   it "quando dígito verificador for 10 deve ser mapeado para 0" do
     attributes = {
-      convenio: "2442725",
-      agencia: "0217",
-      conta_corrente: "42725",
-      byte_idt: 1,
-      posto: "24",
-      numero_documento: 25,
-      valor: 20.00,
-      data_documento: Date.parse("2015-01-18")
+      :convenio => "2442725",
+      :agencia => "0217",
+      :conta_corrente => "42725",
+      :byte_idt => 1,
+      :posto => "24",
+      :numero_documento => 25,
+      :valor => 20.00,
+      :data_documento => Date.parse("2015-01-18")
     }
     attributes = @valid_attributes.merge(attributes)
     boleto_novo = described_class.new(attributes)

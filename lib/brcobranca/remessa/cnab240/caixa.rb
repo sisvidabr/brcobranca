@@ -28,19 +28,19 @@ module Brcobranca
         #     ‘3’ = Sacado via e-mail
         #     ‘4’ = Sacado via SMS
 
-        validates_presence_of :versao_aplicativo, :digito_agencia, message: 'não pode estar em branco.'
-        validates_presence_of :convenio, message: 'não pode estar em branco.'
-        validates_length_of :convenio, maximum: 6, message: 'não deve ter mais de 6 dígitos.'
-        validates_length_of :versao_aplicativo, maximum: 4, message: 'não deve ter mais de 4 dígitos.'
-        validates_length_of :digito_agencia, is: 1, message: 'deve ter 1 dígito.'
-        validates_length_of :modalidade_carteira, is: 2, message: 'deve ter 2 dígitos.'
+        validates_presence_of :versao_aplicativo, :digito_agencia, :message => 'não pode estar em branco.'
+        validates_presence_of :convenio, :message => 'não pode estar em branco.'
+        validates_length_of :convenio, :maximum => 6, :message => 'não deve ter mais de 6 dígitos.'
+        validates_length_of :versao_aplicativo, :maximum => 4, :message => 'não deve ter mais de 4 dígitos.'
+        validates_length_of :digito_agencia, :is => 1, :message => 'deve ter 1 dígito.'
+        validates_length_of :modalidade_carteira, :is => 2, :message => 'deve ter 2 dígitos.'
 
         def initialize(campos = {})
           # Modalidade carteira: 14 (título Registrado emissão Cedente)
-          campos = { modalidade_carteira: '14',
-                     emissao_boleto: '2',
-                     distribuicao_boleto: '0',
-                     especie_titulo: '99' }.merge!(campos)
+          campos = { :modalidade_carteira => '14',
+                     :emissao_boleto => '2',
+                     :distribuicao_boleto => '0',
+                     :especie_titulo => '99' }.merge!(campos)
           super(campos)
         end
 

@@ -70,11 +70,11 @@ module Brcobranca
 
       validates_presence_of :nosso_numero, :data_vencimento, :valor,
         :documento_sacado, :nome_sacado, :endereco_sacado,
-        :cep_sacado, :cidade_sacado, :uf_sacado, message: 'não pode estar em branco.'
-      validates_length_of :cep_sacado, is: 8, message: 'deve ter 8 dígitos.'
-      validates_length_of :cod_desconto, is: 1, message: 'deve ter 1 dígito.'
-      validates_length_of :especie_titulo, is: 2, message: 'deve ter 2 dígitos.', allow_blank: true
-      validates_length_of :identificacao_ocorrencia, is: 2, message: 'deve ter 2 dígitos.'
+        :cep_sacado, :cidade_sacado, :uf_sacado, :message => 'não pode estar em branco.'
+      validates_length_of :cep_sacado, :is => 8, :message => 'deve ter 8 dígitos.'
+      validates_length_of :cod_desconto, :is => 1, :message => 'deve ter 1 dígito.'
+      validates_length_of :especie_titulo, :is => 2, :message => 'deve ter 2 dígitos.', a:allow_blank =>true
+      validates_length_of :identificacao_ocorrencia, :is => 2, :message => 'deve ter 2 dígitos.'
 
       # Nova instancia da classe Pagamento
       #
@@ -82,18 +82,18 @@ module Brcobranca
       #
       def initialize(campos = {})
         padrao = {
-          data_emissao: Date.today,
-          valor_mora: 0.0,
-          valor_desconto: 0.0,
-          valor_segundo_desconto: 0.0,
-          valor_iof: 0.0,
-          valor_abatimento: 0.0,
-          nome_avalista: '',
-          cod_desconto: '0',
-          especie_titulo: '01',
-          identificacao_ocorrencia: '01',
-          codigo_multa: '0',
-          percentual_multa: '0'
+          :data_emissao => Date.today,
+          :valor_mora => 0.0,
+          :valor_desconto => 0.0,
+          :valor_segundo_desconto => 0.0,
+          :valor_iof => 0.0,
+          :valor_abatimento => 0.0,
+          :nome_avalista => '',
+          :cod_desconto => '0',
+          :especie_titulo => '01',
+          :identificacao_ocorrencia => '01',
+          :codigo_multa => '0',
+          :percentual_multa => '0'
         }
 
         campos = padrao.merge!(campos)

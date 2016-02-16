@@ -2,14 +2,14 @@
 module Brcobranca
   module Boleto
     class Banestes < Base # Sicoob (Bancoob)
-      validates_length_of :agencia, maximum: 4, message: "deve ser menor ou igual a 4 dígitos."
-      validates_length_of :conta_corrente, maximum: 11, message: "deve ser menor ou igual a 11 dígitos."
-      validates_length_of :numero_documento, maximum: 8, message: "deve ser menor ou igual a 8 dígitos."
-      validates_length_of :variacao, maximum: 1, message: 'deve ser menor ou igual a 1 dígitos.'
-      validates_length_of :carteira, maximum: 2, message: 'deve ser menor ou igual a 2 dígitos.'
+      validates_length_of :agencia, :maximum => 4, :message => "deve ser menor ou igual a 4 dígitos."
+      validates_length_of :conta_corrente, :maximum => 11, :message => "deve ser menor ou igual a 11 dígitos."
+      validates_length_of :numero_documento, :maximum => 8, :message => "deve ser menor ou igual a 8 dígitos."
+      validates_length_of :variacao, :maximum => 1, :message => 'deve ser menor ou igual a 1 dígitos.'
+      validates_length_of :carteira, :maximum => 2, :message => 'deve ser menor ou igual a 2 dígitos.'
 
       def initialize(campos = {})
-        campos = { carteira: "11", variacao: '2' }.merge!(campos)
+        campos = { :carteira => "11", :variacao => '2' }.merge!(campos)
         super(campos)
       end
 
@@ -56,7 +56,7 @@ module Brcobranca
       end
 
       def nosso_numero_dv
-        numero_dv_1 = numero_documento.modulo11(mapeamento: { 1 => 0, 11 => 0 })
+        numero_dv_1 = numero_documento.modulo11(:mapeamento => { 1 => 0, 11 => 0 })
         numero_dv_2 = "#{numero_documento}#{numero_dv_1}".modulo11
 
         "#{numero_dv_1}#{numero_dv_2}"

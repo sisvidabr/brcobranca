@@ -4,18 +4,18 @@ require "spec_helper"
 RSpec.describe Brcobranca::Boleto::Sicoob do #:nodoc:[all]
   before do
     @valid_attributes = {
-      data_documento: Date.parse("2013-07-15"),
-      data_vencimento: Date.parse("2013-08-29"),
-      aceite: "N",
-      valor: 100.0,
-      cedente: "Kivanio Barbosa",
-      documento_cedente: "12345678912",
-      sacado: "Claudio Pozzebom",
-      sacado_documento: "12345678900",
-      agencia: "3007",
-      conta_corrente: "417270",
-      convenio: 318_957,
-      numero_documento: "240"
+      :data_documento => Date.parse("2013-07-15"),
+      :data_vencimento => Date.parse("2013-08-29"),
+      :aceite => "N",
+      :valor => 100.0,
+      :cedente => "Kivanio Barbosa",
+      :documento_cedente => "12345678912",
+      :sacado => "Claudio Pozzebom",
+      :sacado_documento => "12345678900",
+      :agencia => "3007",
+      :conta_corrente => "417270",
+      :convenio => 318_957,
+      :numero_documento => "240"
     }
   end
 

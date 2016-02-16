@@ -15,7 +15,7 @@ module Brcobranca
       extend ParseLine::FixedWidth # Extendendo parseline
 
       def self.load_lines(file, options = {})
-        default_options = { except: [1] } # por padrao ignora a primeira linha que é header
+        default_options = { :except => [1] } # por padrao ignora a primeira linha que é header
         options = default_options.merge!(options)
 
         super file, options

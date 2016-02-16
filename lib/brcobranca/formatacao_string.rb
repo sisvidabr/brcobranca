@@ -11,7 +11,7 @@ module Brcobranca
     #
     def format_size(size)
       if self.size > size
-        ActiveSupport::Inflector.transliterate(truncate(size, omission: ''))
+        ActiveSupport::Inflector.transliterate(truncate(size, :omission => ''))
       else
         ActiveSupport::Inflector.transliterate(ljust(size, ' '))
       end

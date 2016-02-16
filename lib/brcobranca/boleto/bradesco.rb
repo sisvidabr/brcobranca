@@ -2,17 +2,17 @@
 module Brcobranca
   module Boleto
     class Bradesco < Base # Banco BRADESCO
-      validates_length_of :agencia, maximum: 4, message: 'deve ser menor ou igual a 4 dígitos.'
-      validates_length_of :numero_documento, maximum: 11, message: 'deve ser menor ou igual a 11 dígitos.'
-      validates_length_of :conta_corrente, maximum: 7, message: 'deve ser menor ou igual a 7 dígitos.'
-      validates_length_of :carteira, maximum: 2, message: 'deve ser menor ou igual a 2 dígitos.'
+      validates_length_of :agencia, :maximum => 4, :message => 'deve ser menor ou igual a 4 dígitos.'
+      validates_length_of :numero_documento, :maximum => 11, :message => 'deve ser menor ou igual a 11 dígitos.'
+      validates_length_of :conta_corrente, :maximum => 7, :message => 'deve ser menor ou igual a 7 dígitos.'
+      validates_length_of :carteira, :maximum => 2, :message => 'deve ser menor ou igual a 2 dígitos.'
 
       # Nova instancia do Bradesco
       # @param (see Brcobranca::Boleto::Base#initialize)
       def initialize(campos = {})
-        campos = { carteira: '06' }.merge!(campos)
+        campos = { :carteira => '06' }.merge!(campos)
 
-        campos.merge!(local_pagamento: 'Pagável preferencialmente na Rede Bradesco ou Bradesco Expresso')
+        campos.merge!(:local_pagamento => 'Pagável preferencialmente na Rede Bradesco ou Bradesco Expresso')
 
         super(campos)
       end
@@ -49,8 +49,8 @@ module Brcobranca
       # @return [Integer] 1 caracteres numéricos.
       def agencia_dv
         agencia.modulo11(
-          multiplicador: [2, 3, 4, 5],
-          mapeamento: { 10 => 'P', 11 => 0 }
+          :multiplicador => [2, 3, 4, 5],
+          :mapeamento => { 10 => 'P', 11 => 0 }
         ) { |total| 11 - (total % 11) }
       end
 
@@ -58,8 +58,8 @@ module Brcobranca
       # @return [Integer] 1 caracteres numéricos.
       def nosso_numero_dv
         "#{carteira}#{numero_documento}".modulo11(
-          multiplicador: [2, 3, 4, 5, 6, 7],
-          mapeamento: { 10 => 'P', 11 => 0 }
+          :multiplicador => [2, 3, 4, 5, 6, 7],
+          :mapeamento => { 10 => 'P', 11 => 0 }
         ) { |total| 11 - (total % 11) }
       end
 
@@ -67,8 +67,8 @@ module Brcobranca
       # @return [Integer] 1 caracteres numéricos.
       def conta_corrente_dv
         conta_corrente.modulo11(
-          multiplicador: [2, 3, 4, 5, 6, 7],
-          mapeamento: { 10 => 'P', 11 => 0 }
+          :multiplicador => [2, 3, 4, 5, 6, 7],
+          :mapeamento => { 10 => 'P', 11 => 0 }
         ) { |total| 11 - (total % 11) }
       end
 

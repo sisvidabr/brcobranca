@@ -4,14 +4,14 @@
 module Brcobranca
   module Boleto
     class Santander < Base # Banco Santander
-      validates_length_of :agencia, maximum: 4, message: 'deve ser menor ou igual a 4 dígitos.'
-      validates_length_of :convenio, maximum: 7, message: 'deve ser menor ou igual a 7 dígitos.'
-      validates_length_of :numero_documento, maximum: 12, message: 'deve ser menor ou igual a 12 dígitos.'
+      validates_length_of :agencia, :maximum => 4, :message => 'deve ser menor ou igual a 4 dígitos.'
+      validates_length_of :convenio, :maximum => 7, :message => 'deve ser menor ou igual a 7 dígitos.'
+      validates_length_of :numero_documento, :maximum => 12, :message => 'deve ser menor ou igual a 12 dígitos.'
 
       # Nova instancia do Santander
       # @param (see Brcobranca::Boleto::Base#initialize)
       def initialize(campos = {})
-        campos = { carteira: '102' }.merge!(campos)
+        campos = { :carteira => '102' }.merge!(campos)
         super(campos)
       end
 
@@ -46,8 +46,8 @@ module Brcobranca
       def nosso_numero_dv
         nosso_numero = numero_documento.to_s.rjust(12, '0') unless numero_documento.nil?
         nosso_numero.modulo11(
-          multiplicador: (2..9).to_a,
-          mapeamento: { 10 => 0, 11 => 0 }
+          :multiplicador => (2..9).to_a,
+          :mapeamento => { 10 => 0, 11 => 0 }
         ) { |total| 11 - (total % 11) }
       end
 

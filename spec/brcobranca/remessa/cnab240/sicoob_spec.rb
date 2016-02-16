@@ -4,27 +4,27 @@ require 'spec_helper'
 RSpec.describe Brcobranca::Remessa::Cnab240::Sicoob do
   let(:pagamento) do
     Brcobranca::Remessa::Pagamento.new(
-      valor: 50.0,
-      data_vencimento: Date.today,
-      nosso_numero: '429715',
-      documento_sacado: '82136760505',
-      nome_sacado: 'PABLO DIEGO JOSÉ FRANCISCO DE PAULA JUAN NEPOMUCENO MARÍA DE LOS REMEDIOS CIPRIANO DE LA SANTÍSSIMA TRINIDAD RUIZ Y PICASSO',
-      endereco_sacado: 'RUA RIO GRANDE DO SUL São paulo Minas caçapa da silva junior',
-      bairro_sacado: 'São josé dos quatro apostolos magros',
-      cep_sacado: '12345678',
-      cidade_sacado: 'Santa rita de cássia maria da silva',
-      uf_sacado: 'RJ'
+      :valor => 50.0,
+      :data_vencimento => Date.today,
+      :nosso_numero => '429715',
+      :documento_sacado => '82136760505',
+      :nome_sacado => 'PABLO DIEGO JOSÉ FRANCISCO DE PAULA JUAN NEPOMUCENO MARÍA DE LOS REMEDIOS CIPRIANO DE LA SANTÍSSIMA TRINIDAD RUIZ Y PICASSO',
+      :endereco_sacado => 'RUA RIO GRANDE DO SUL São paulo Minas caçapa da silva junior',
+      :bairro_sacado => 'São josé dos quatro apostolos magros',
+      :cep_sacado => '12345678',
+      :cidade_sacado => 'Santa rita de cássia maria da silva',
+      :uf_sacado => 'RJ'
     )
   end
 
   let(:params) do
     {
-      empresa_mae: 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
-      agencia: '4327',
-      conta_corrente: '03666',
-      documento_cedente: '74576177000177',
-      modalidade_carteira: '01',
-      pagamentos: [pagamento]
+      :empresa_mae => 'SOCIEDADE BRASILEIRA DE ZOOLOGIA LTDA',
+      :agencia => '4327',
+      :conta_corrente => '03666',
+      :documento_cedente => '74576177000177',
+      :modalidade_carteira => '01',
+      :pagamentos => [pagamento]
     }
   end
 
@@ -33,7 +33,7 @@ RSpec.describe Brcobranca::Remessa::Cnab240::Sicoob do
   context 'validacoes' do
     context '@modalidade_carteira' do
       it 'deve ser invalido se nao possuir a modalidade da carteira' do
-        objeto = subject.class.new(params.merge(modalidade_carteira: nil))
+        objeto = subject.class.new(params.merge(:modalidade_carteira => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Modalidade carteira não pode estar em branco.')
       end
@@ -41,7 +41,7 @@ RSpec.describe Brcobranca::Remessa::Cnab240::Sicoob do
 
     context '@tipo_formulario' do
       it 'deve ser invalido se nao possuir o tipo de formulario' do
-        objeto = subject.class.new(params.merge(tipo_formulario: nil))
+        objeto = subject.class.new(params.merge(:tipo_formulario => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Tipo formulario não pode estar em branco.')
       end
@@ -49,7 +49,7 @@ RSpec.describe Brcobranca::Remessa::Cnab240::Sicoob do
 
     context '@parcela' do
       it 'deve ser invalido se nao possuir a parcela' do
-        objeto = subject.class.new(params.merge(parcela: nil))
+        objeto = subject.class.new(params.merge(:parcela => nil))
         expect(objeto.invalid?).to be true
         expect(objeto.errors.full_messages).to include('Parcela não pode estar em branco.')
       end

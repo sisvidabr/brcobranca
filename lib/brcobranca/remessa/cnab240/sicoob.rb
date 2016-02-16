@@ -25,21 +25,21 @@ module Brcobranca
         attr_accessor :parcela
         #       Parcela - 02 posições (11 a 12) - "01" se parcela única
 
-        validates_presence_of :modalidade_carteira, :tipo_formulario, :parcela, message: 'não pode estar em branco.'
+        validates_presence_of :modalidade_carteira, :tipo_formulario, :parcela, :message => 'não pode estar em branco.'
         # Remessa 400 - 8 digitos
         # Remessa 240 - 12 digitos
-        validates_length_of :conta_corrente, maximum: 8, message: 'deve ter 8 dígitos.'
-        validates_length_of :agencia, is: 4, message: 'deve ter 4 dígitos.'
-        validates_length_of :modalidade_carteira, is: 2, message: 'deve ter 2 dígitos.'
+        validates_length_of :conta_corrente, :maximum => 8, :message => 'deve ter 8 dígitos.'
+        validates_length_of :agencia, :is => 4, :message => 'deve ter 4 dígitos.'
+        validates_length_of :modalidade_carteira, :is => 2, :message => 'deve ter 2 dígitos.'
 
         def initialize(campos = {})
-          campos = { emissao_boleto: '2',
-            distribuicao_boleto: '2',
-            especie_titulo: '02',
-            tipo_formulario: '4',
-            parcela: '01',
-            modalidade_carteira: '01',
-            forma_cadastramento: '0'}.merge!(campos)
+          campos = { :emissao_boleto => '2',
+            :distribuicao_boleto => '2',
+            :especie_titulo => '02',
+            :tipo_formulario => '4',
+            :parcela => '01',
+            :modalidade_carteira => '01',
+            :forma_cadastramento => '0'}.merge!(campos)
           super(campos)
         end
 
@@ -62,13 +62,13 @@ module Brcobranca
         def digito_agencia
           # utilizando a agencia com 4 digitos
           # para calcular o digito
-          agencia.modulo11(mapeamento: { 10 => 'X' }).to_s
+          agencia.modulo11(:mapeamento => { 10 => 'X' }).to_s
         end
 
         def digito_conta
           # utilizando a conta corrente com 5 digitos
           # para calcular o digito
-          conta_corrente.modulo11(mapeamento: { 10 => 'X' }).to_s
+          conta_corrente.modulo11(:mapeamento => { 10 => 'X' }).to_s
         end
 
         def codigo_convenio

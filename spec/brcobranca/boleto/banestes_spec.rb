@@ -4,15 +4,15 @@ require "spec_helper"
 RSpec.describe Brcobranca::Boleto::Banestes do #:nodoc:[all]
 
   let(:valid_attributes) { {
-    data_vencimento: Date.parse("2015-06-26"),
-    valor: 1278.90,
-    cedente: "Kivanio Barbosa",
-    documento_cedente: "12345678912",
-    sacado: "Claudio Pozzebom",
-    sacado_documento: "12345678900",
-    agencia: "274",
-    conta_corrente: "14542047",
-    numero_documento: "69240101"
+    :data_vencimento => Date.parse("2015-06-26"),
+    :valor => 1278.90,
+    :cedente => "Kivanio Barbosa",
+    :documento_cedente => "12345678912",
+    :sacado => "Claudio Pozzebom",
+    :sacado_documento => "12345678900",
+    :agencia => "274",
+    :conta_corrente => "14542047",
+    :numero_documento => "69240101"
   } }
 
   it "Criar nova instancia com atributos padrões" do

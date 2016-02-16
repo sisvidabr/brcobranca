@@ -4,15 +4,15 @@ require 'spec_helper'
 RSpec.describe Brcobranca::Boleto::Caixa do #:nodoc:[all]
   before do
     @valid_attributes = {
-      valor: 10.00,
-      cedente: 'PREFEITURA MUNICIPAL DE VILHENA',
-      documento_cedente: '04092706000181',
-      sacado: 'João Paulo Barbosa',
-      sacado_documento: '77777777777',
-      agencia: '1825',
-      conta_corrente: '0000528',
-      convenio: '245274',
-      numero_documento: '000000000000001'
+      :valor => 10.00,
+      :cedente => 'PREFEITURA MUNICIPAL DE VILHENA',
+      :documento_cedente => '04092706000181',
+      :sacado => 'João Paulo Barbosa',
+      :sacado_documento => '77777777777',
+      :agencia => '1825',
+      :conta_corrente => '0000528',
+      :convenio => '245274',
+      :numero_documento => '000000000000001'
     }
   end
 
@@ -62,39 +62,39 @@ RSpec.describe Brcobranca::Boleto::Caixa do #:nodoc:[all]
   end
 
   it 'Tamanho do número de convênio deve ser de 6 dígitos' do
-    boleto_novo = described_class.new @valid_attributes.merge(convenio: '1234567')
+    boleto_novo = described_class.new @valid_attributes.merge(:convenio => '1234567')
     expect(boleto_novo).not_to be_valid
   end
 
   it 'Número do convênio deve ser preenchido com zeros à esquerda quando menor que 6 dígitos' do
-    boleto_novo = described_class.new @valid_attributes.merge(convenio: '12345')
+    boleto_novo = described_class.new @valid_attributes.merge(:convenio => '12345')
     expect(boleto_novo.convenio).to eq('012345')
     expect(boleto_novo).to be_valid
   end
 
   it 'Tamanho da carteira deve ser de 1 dígitos' do
-    boleto_novo = described_class.new @valid_attributes.merge(carteira: '145')
+    boleto_novo = described_class.new @valid_attributes.merge(:carteira => '145')
     expect(boleto_novo).not_to be_valid
 
-    boleto_novo = described_class.new @valid_attributes.merge(carteira: '24')
+    boleto_novo = described_class.new @valid_attributes.merge(:carteira => '24')
     expect(boleto_novo).not_to be_valid
   end
 
   it 'Emissao deve ser de 1 dígitos' do
-    boleto_novo = described_class.new @valid_attributes.merge(emissao: '145')
+    boleto_novo = described_class.new @valid_attributes.merge(:emissao => '145')
     expect(boleto_novo).not_to be_valid
 
-    boleto_novo = described_class.new @valid_attributes.merge(emissao: '24')
+    boleto_novo = described_class.new @valid_attributes.merge(:emissao => '24')
     expect(boleto_novo).not_to be_valid
   end
 
   it 'Tamanho do número documento deve ser de 15 dígitos' do
-    boleto_novo = described_class.new @valid_attributes.merge(numero_documento: '1234567891234567')
+    boleto_novo = described_class.new @valid_attributes.merge(:numero_documento => '1234567891234567')
     expect(boleto_novo).not_to be_valid
   end
 
   it 'Número do documento deve ser preenchido com zeros à esquerda quando menor que 15 dígitos' do
-    boleto_novo = described_class.new @valid_attributes.merge(numero_documento: '1')
+    boleto_novo = described_class.new @valid_attributes.merge(:numero_documento => '1')
     expect(boleto_novo.numero_documento).to eq('000000000000001')
     expect(boleto_novo).to be_valid
   end

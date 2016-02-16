@@ -10,19 +10,19 @@ module Brcobranca
         # identificacao da distribuicao do boleto (attr na classe base)
         #   campo nao tratado pelo sistema do Banco do Brasil
 
-        validates_presence_of :carteira, :variacao, message: 'não pode estar em branco.'
-        validates_presence_of :convenio, message: 'não pode estar em branco.'
-        validates_length_of :conta_corrente, maximum: 12, message: 'deve ter 12 dígitos.'
-        validates_length_of :agencia, maximum: 5, message: 'deve ter 5 dígitos.'
-        validates_length_of :carteira, is: 2, message: 'deve ter 2 dígitos.'
-        validates_length_of :variacao, is: 3, message: 'deve ter 3 dígitos.'
-        validates_length_of :convenio, in: 4..7, message: 'deve ter de 4 a 7 dígitos.'
+        validates_presence_of :carteira, :variacao, :message => 'não pode estar em branco.'
+        validates_presence_of :convenio, :message => 'não pode estar em branco.'
+        validates_length_of :conta_corrente, :maximum => 12, :message => 'deve ter 12 dígitos.'
+        validates_length_of :agencia, :maximum => 5, :message => 'deve ter 5 dígitos.'
+        validates_length_of :carteira, :is => 2, :message => 'deve ter 2 dígitos.'
+        validates_length_of :variacao, :is => 3, :message => 'deve ter 3 dígitos.'
+        validates_length_of :convenio, :in => 4..7, :message => 'deve ter de 4 a 7 dígitos.'
 
         def initialize(campos = {})
-          campos = { emissao_boleto: '0',
-            distribuicao_boleto: '0',
-            especie_titulo: '02',
-            codigo_carteira: '7',}.merge!(campos)
+          campos = { :emissao_boleto => '0',
+            :distribuicao_boleto => '0',
+            :especie_titulo => '02',
+            :codigo_carteira => '7',}.merge!(campos)
           super(campos)
         end
 
@@ -45,13 +45,13 @@ module Brcobranca
         def digito_agencia
           # utilizando a agencia com 4 digitos
           # para calcular o digito
-          agencia.modulo11(mapeamento: { 10 => 'X' }).to_s
+          agencia.modulo11(:mapeamento => { 10 => 'X' }).to_s
         end
 
         def digito_conta
           # utilizando a conta corrente com 5 digitos
           # para calcular o digito
-          conta_corrente.modulo11(mapeamento: { 10 => 'X' }).to_s
+          conta_corrente.modulo11(:mapeamento => { 10 => 'X' }).to_s
         end
 
         def codigo_convenio
@@ -114,7 +114,7 @@ module Brcobranca
           nosso_numero = nosso_numero.to_s.rjust(quantidade, '0')
 
           # calcula o digito do nosso numero (menos para quando nosso numero tiver 10 posicoes)
-          digito = "#{convenio}#{nosso_numero}".modulo11(mapeamento: { 10 => 'X' }) unless quantidade == 10
+          digito = "#{convenio}#{nosso_numero}".modulo11(:mapeamento => { 10 => 'X' }) unless quantidade == 10
           "#{nosso_numero}#{digito}"
         end
 

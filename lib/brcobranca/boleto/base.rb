@@ -81,16 +81,16 @@ module Brcobranca
       attr_accessor :cedente_endereco
 
       # Validações
-      validates_presence_of :agencia, :conta_corrente, :moeda, :especie_documento, :especie, :aceite, :numero_documento, message: 'não pode estar em branco.'
-      validates_numericality_of :convenio, :agencia, :conta_corrente, :numero_documento, message: 'não é um número.', allow_nil: true
+      validates_presence_of :agencia, :conta_corrente, :moeda, :especie_documento, :especie, :aceite, :numero_documento, :message => 'não pode estar em branco.'
+      validates_numericality_of :convenio, :agencia, :conta_corrente, :numero_documento, :message => 'não é um número.', all:allow_nil =>ue
 
       # Nova instancia da classe Base
       # @param [Hash] campos
       def initialize(campos = {})
         padrao = {
-          moeda: '9', data_documento: Date.today, data_vencimento: Date.today, quantidade: 1,
-          especie_documento: 'DM', especie: 'R$', aceite: 'S', valor: 0.0,
-          local_pagamento: 'QUALQUER BANCO ATÉ O VENCIMENTO'
+          :moeda => '9', :data_documento => Date.today, :data_vencimento => Date.today, :quantidade => 1,
+          :especie_documento => 'DM', :especie => 'R$', :aceite => 'S', :valor => 0.0,
+          :local_pagamento => 'QUALQUER BANCO ATÉ O VENCIMENTO'
         }
 
         campos = padrao.merge!(campos)
@@ -189,8 +189,8 @@ module Brcobranca
         if codigo =~ /^(\d{4})(\d{39})$/
 
           codigo_dv = codigo.modulo11(
-            multiplicador: (2..9).to_a,
-            mapeamento: { 0 => 1, 10 => 1, 11 => 1 }
+            :multiplicador => (2..9).to_a,
+            :mapeamento => { 0 => 1, 10 => 1, 11 => 1 }
           ) { |t| 11 - (t % 11) }
 
           codigo = "#{Regexp.last_match[1]}#{codigo_dv}#{Regexp.last_match[2]}"
