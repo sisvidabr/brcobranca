@@ -15,7 +15,7 @@ module Brcobranca
         validates_presence_of :documento_cedente, :codigo_transmissao, :agencia, :conta_corrente, :digito_conta, :message => 'não pode estar em branco.'
         validates_length_of :documento_cedente, :in => 11..14, :message => 'deve ter entre 11 e 14 dígitos.'
         validates_length_of :carteira, :maximum => 3, :message => 'deve ter no máximo 3 dígitos.'
-        validates_length_of :codigo_transmissao, :maximum => 20, :message => 'deve ter no máximo 20 dígitos.'
+        validates_length_of :codigo_transmissao, :maximum => 20, :message => 'deve ter no máximo 20 dígitos.', :allow_nil => true
 
         def initialize(campos = {})
           campos = { :aceite => 'N', :carteira => '101', :codigo_carteira => '5'}.merge!(campos)
