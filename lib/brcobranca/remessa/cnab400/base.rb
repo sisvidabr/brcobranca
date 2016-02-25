@@ -75,7 +75,9 @@ module Brcobranca
           remittance = ret.join("\n").to_ascii.upcase
           remittance << "\n"
 
-          remittance.encode(remittance.encoding, :universal_newline => true).encode(remittance.encoding, :crlf_newline => true)
+          # remittance = String19(remittance)
+          remittance.gsub("\r\n", "\n").gsub("\r", "\n").gsub("\n", "\r\n")
+          # remittance.encode(remittance.encoding, :universal_newline => true).encode(remittance.encoding, :crlf_newline => true)
         end
 
         # Informacoes referentes a conta do cedente

@@ -306,7 +306,8 @@ module Brcobranca
 
           remittance = arquivo.join("\n").to_ascii.upcase
           remittance << "\n"
-          remittance.encode(remittance.encoding, :universal_newline => true).encode(remittance.encoding, :crlf_newline => true)
+          # remittance.encode(remittance.encoding, :universal_newline => true).encode(remittance.encoding, :crlf_newline => true)
+          remittance.gsub("\r\n", "\n").gsub("\r", "\n").gsub("\n", "\r\n")
         end
 
         # Complemento do registro
