@@ -139,7 +139,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Bradesco do
       expect(id_empresa[1..3]).to eq '001' # carteira (com 3 digitos)
       expect(id_empresa[4..8]).to eq '12345' # agencia
       expect(id_empresa[9..15]).to eq '1234567' # conta corrente
-      expect(id_empresa[16]).to eq '1' # digito da conta corrente
+      expect(id_empresa[16].chr).to eq '1' # digito da conta corrente
     end
 
     it 'calcula o digito verificador do nosso numero' do
@@ -164,7 +164,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Bradesco do
     context 'header' do
       it 'informacoes devem estar posicionadas corretamente no header' do
         header = bradesco.monta_header
-        expect(header[1]).to eq '1' # tipo operacao (1 = remessa)
+        expect(header[1].chr).to eq '1' # tipo operacao (1 = remessa)
         expect(header[2..8]).to eq 'REMESSA' # literal da operacao
         expect(header[26..45]).to eq bradesco.info_conta # informacoes da conta
         expect(header[76..78]).to eq '237' # codigo do banco
@@ -175,7 +175,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Bradesco do
       it 'informacoes devem estar posicionadas corretamente no detalhe' do
         detalhe = bradesco.monta_detalhe pagamento, 1
         expect(detalhe[70..80]).to eq '00000000123' # nosso numero
-        expect(detalhe[81]).to eq 'P' # digito nosso numero (para nosso numero 123 o digito e P)
+        expect(detalhe[81].chr).to eq 'P' # digito nosso numero (para nosso numero 123 o digito e P)
         expect(detalhe[120..125]).to eq Date.today.strftime('%d%m%y') # data de vencimento
         expect(detalhe[126..138]).to eq '0000000019990' # valor do documento
         expect(detalhe[220..233]).to eq '00012345678901' # documento do pagador

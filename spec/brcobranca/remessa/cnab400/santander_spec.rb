@@ -108,7 +108,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Santander do
     context 'header' do
       it 'informacoes devem estar posicionadas corretamente no header' do
         header = santander.monta_header
-        expect(header[1]).to eq '1' # tipo operacao (1 = remessa)
+        expect(header[1].chr).to eq '1' # tipo operacao (1 = remessa)
         expect(header[2..8]).to eq 'REMESSA' # literal da operacao
         expect(header[26..45]).to eq santander.info_conta # informacoes da conta
         expect(header[76..78]).to eq '033' # codigo do banco
@@ -133,7 +133,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Santander do
 
       it 'informacoes devem estar posicionadas corretamente no trailer' do
         trailer = santander.monta_trailer 3
-        expect(trailer[0]).to eq '9' # identificacao registro
+        expect(trailer[0].chr).to eq '9' # identificacao registro
         expect(trailer[1..6]).to eq '000003' # numero de linhas
         expect(trailer[7..19]).to eq '0000000019990' # valor total
         expect(trailer[20..393]).to eq ''.rjust(374, '0') # zeros

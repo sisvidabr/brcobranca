@@ -209,7 +209,7 @@ module Brcobranca
           # [99]
           # ultimo digito da conta corrente
           # digito da conta corrente
-          "#{conta_corrente[-1]}#{digito_conta}"
+          "#{conta_corrente[-1].chr}#{digito_conta}"
         end
       end
     end

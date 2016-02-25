@@ -48,7 +48,7 @@ shared_examples_for 'cnab240' do
     it 'header arquivo deve ter as informacoes nas posicoes corretas' do
       header = objeto.monta_header_arquivo
       expect(header[0..2]).to eq objeto.cod_banco # cod. do banco
-      expect(header[17]).to eq '1' # tipo inscricao do cedente
+      expect(header[17].chr).to eq '1' # tipo inscricao do cedente
       expect(header[18..31]).to eq '00012345678901' # documento do cedente
       expect(header[32..51]).to eq objeto.codigo_convenio # informacoes do convenio
       expect(header[52..71]).to eq objeto.info_conta # informacoes da conta
@@ -68,7 +68,7 @@ shared_examples_for 'cnab240' do
       expect(header[0..2]).to eq objeto.cod_banco # cod. do banco
       expect(header[3..6]).to eq '0001' # numero do lote
       expect(header[13..15]).to eq objeto.versao_layout_lote # versao do layout
-      expect(header[17]).to eq '1' # tipo inscricao do cedente
+      expect(header[17].chr).to eq '1' # tipo inscricao do cedente
       expect(header[18..32]).to eq '000012345678901' # documento do cedente
       expect(header[33..52]).to eq objeto.convenio_lote # informacoes do convenio
       expect(header[53..72]).to eq objeto.info_conta # informacoes da conta
@@ -90,14 +90,14 @@ shared_examples_for 'cnab240' do
       expect(segmento_p[3..6]).to eq '0001' # numero do lote
       expect(segmento_p[8..12]).to eq '00002' # sequencial do registro no lote
       expect(segmento_p[17..21]).to eq '01234' # agencia
-      expect(segmento_p[22]).to eq objeto.digito_agencia.to_s # digito da agencia
+      expect(segmento_p[22].chr).to eq objeto.digito_agencia.to_s # digito da agencia
       expect(segmento_p[23..56]).to eq objeto.complemento_p(pagamento) # complemento do segmento P
       expect(segmento_p[62..76]).to eq '000000000000123' # numero do documento
       expect(segmento_p[77..84]).to eq Date.today.strftime('%d%m%Y') # data de vencimento
       expect(segmento_p[85..99]).to eq '000000000019990' # valor
       expect(segmento_p[109..116]).to eq Date.today.strftime('%d%m%Y') # data de emissao
       # mora
-      expect(segmento_p[141]).to eq '0' # codigo do desconto
+      expect(segmento_p[141].chr).to eq '0' # codigo do desconto
       expect(segmento_p[142..149]).to eq '00000000' # data de desconto
       expect(segmento_p[150..164]).to eq ''.rjust(15, '0') # valor do desconto
       expect(segmento_p[165..179]).to eq '000000000000990' # valor do IOF
@@ -115,7 +115,7 @@ shared_examples_for 'cnab240' do
       expect(segmento_q[0..2]).to eq objeto.cod_banco # codigo do banco
       expect(segmento_q[3..6]).to eq '0001' # numero do lote
       expect(segmento_q[8..12]).to eq '00003' # numero do registro no lote
-      expect(segmento_q[17]).to eq '1' # tipo inscricao sacado
+      expect(segmento_q[17].chr).to eq '1' # tipo inscricao sacado
       expect(segmento_q[18..32]).to eq '000012345678901' # documento do sacado
       expect(segmento_q[33..72]).to eq 'PABLO DIEGO JOSE FRANCISCO DE PAULA JUAN' # nome do sacado
       expect(segmento_q[73..112]).to eq 'RUA RIO GRANDE DO SUL Sao paulo Minas ca' # endereco do sacado
@@ -124,7 +124,7 @@ shared_examples_for 'cnab240' do
       expect(segmento_q[133..135]).to eq '678' # sufixo CEP do sacado
       expect(segmento_q[136..150]).to eq 'Santa rita de c' # cidade do sacado
       expect(segmento_q[151..152]).to eq 'SP' # UF do sacado
-      expect(segmento_q[153]).to eq '1' # tipo inscricao avalista
+      expect(segmento_q[153].chr).to eq '1' # tipo inscricao avalista
       expect(segmento_q[154..168]).to eq '000012345678901' # documento avalista
       expect(segmento_q[169..208]).to eq 'ISABEL CRISTINA LEOPOLDINA ALGUSTA MIGUE' # nome do avalista
     end

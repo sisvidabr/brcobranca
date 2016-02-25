@@ -139,9 +139,9 @@ RSpec.describe Brcobranca::Remessa::Cnab240::BancoBrasil do
     it 'info conta deve retornar as informacoes nas posicoes corretas' do
       info_conta = banco_brasil.info_conta
       expect(info_conta[0..4]).to eq '01234'
-      expect(info_conta[5]).to eq '3'
+      expect(info_conta[5].chr).to eq '3'
       expect(info_conta[6..17]).to eq '000000012345'
-      expect(info_conta[18]).to eq '5'
+      expect(info_conta[18].chr).to eq '5'
     end
 
     it 'complemento header deve retornar espacos em branco' do

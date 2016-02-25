@@ -117,7 +117,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Itau do
       expect(info_conta.size).to eq 20
       expect(info_conta[0..3]).to eq '1234' # num. da agencia
       expect(info_conta[6..10]).to eq '12345' # num. da conta
-      expect(info_conta[11]).to eq '1' # num. do digito
+      expect(info_conta[11].chr).to eq '1' # num. do digito
     end
 
     it 'deve retornar o codigo da carteira' do
@@ -144,7 +144,7 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Itau do
     context 'header' do
       it 'informacoes devem estar posicionadas corretamente no header' do
         header = itau.monta_header
-        expect(header[1]).to eq '1' # tipo operacao (1 = remessa)
+        expect(header[1].chr).to eq '1' # tipo operacao (1 = remessa)
         expect(header[2..8]).to eq 'REMESSA' # literal da operacao
         expect(header[26..45]).to eq itau.info_conta # informacoes da conta
         expect(header[76..78]).to eq '341' # codigo do banco
