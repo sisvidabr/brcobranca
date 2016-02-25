@@ -2,10 +2,10 @@
 module Brcobranca
   module Boleto
     class Bradesco < Base # Banco BRADESCO
-      validates_length_of :agencia, :maximum => 4, :message => 'deve ser menor ou igual a 4 dígitos.'
-      validates_length_of :numero_documento, :maximum => 11, :message => 'deve ser menor ou igual a 11 dígitos.'
-      validates_length_of :conta_corrente, :maximum => 7, :message => 'deve ser menor ou igual a 7 dígitos.'
-      validates_length_of :carteira, :maximum => 2, :message => 'deve ser menor ou igual a 2 dígitos.'
+      validates_length_of :agencia, :maximum => 4, :message => 'deve ser menor ou igual a 4 dígitos.', :allow_nil => true
+      validates_length_of :numero_documento, :maximum => 11, :message => 'deve ser menor ou igual a 11 dígitos.', :allow_nil => true
+      validates_length_of :conta_corrente, :maximum => 7, :message => 'deve ser menor ou igual a 7 dígitos.', :allow_nil => true
+      validates_length_of :carteira, :maximum => 2, :message => 'deve ser menor ou igual a 2 dígitos.', :allow_nil => true
 
       # Nova instancia do Bradesco
       # @param (see Brcobranca::Boleto::Base#initialize)

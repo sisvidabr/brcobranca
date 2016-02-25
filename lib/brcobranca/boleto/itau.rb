@@ -5,11 +5,11 @@ module Brcobranca
       # Usado somente em carteiras especiais com registro para complementar o número do cocumento
       attr_reader :seu_numero
 
-      validates_length_of :agencia, :maximum => 4, :message => 'deve ser menor ou igual a 4 dígitos.'
-      validates_length_of :convenio, :maximum => 5, :message => 'deve ser menor ou igual a 5 dígitos.'
-      validates_length_of :numero_documento, :maximum => 8, :message => 'deve ser menor ou igual a 8 dígitos.'
-      validates_length_of :conta_corrente, :maximum => 5, :message => 'deve ser menor ou igual a 5 dígitos.'
-      validates_length_of :seu_numero, :maximum => 7, :message => 'deve ser menor ou igual a 7 dígitos.'
+      validates_length_of :agencia, :maximum => 4, :message => 'deve ser menor ou igual a 4 dígitos.', :allow_nil => true
+      validates_length_of :convenio, :maximum => 5, :message => 'deve ser menor ou igual a 5 dígitos.', :allow_nil => true
+      validates_length_of :numero_documento, :maximum => 8, :message => 'deve ser menor ou igual a 8 dígitos.', :allow_nil => true
+      validates_length_of :conta_corrente, :maximum => 5, :message => 'deve ser menor ou igual a 5 dígitos.', :allow_nil => true
+      validates_length_of :seu_numero, :maximum => 7, :message => 'deve ser menor ou igual a 7 dígitos.', :allow_nil => true
 
       # Nova instancia do Itau
       # @param (see Brcobranca::Boleto::Base#initialize)
