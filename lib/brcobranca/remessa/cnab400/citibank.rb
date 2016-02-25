@@ -10,7 +10,7 @@ module Brcobranca
         attr_accessor :portfolio
 
         validates_presence_of :documento_cedente, :portfolio, :message => 'não pode estar em branco.'
-        validates_length_of :documento_cedente, :minimum => 11, :maximum => 14, :message => 'deve ter entre 11 e 14 dígitos.'
+        validates_length_of :documento_cedente, :in => 11..14, :message => 'deve ter entre 11 e 14 dígitos.'
         validates_length_of :carteira, :maximum => 1, :message => 'deve ter no máximo 1 dígito.'
         validates_length_of :portfolio, :maximum => 20, :message => 'deve ter no máximo 20 dígitos.'
 

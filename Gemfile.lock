@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     brcobranca (6.1.11)
+      activerecord (~> 2.3)
       parseline (~> 1.0.3)
       rghost (~> 0.9)
       rghost_barcode (~> 0.9)
@@ -10,6 +11,9 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    activerecord (2.3.18)
+      activesupport (= 2.3.18)
+    activesupport (2.3.18)
     coderay (1.1.0)
     diff-lcs (1.2.5)
     method_source (0.8.2)

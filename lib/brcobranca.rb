@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-require 'active_model'
+# require 'active_model'
+require 'brcobranca/tableless_model'
 require 'brcobranca/calculo'
 require 'brcobranca/limpeza'
 require 'brcobranca/formatacao'

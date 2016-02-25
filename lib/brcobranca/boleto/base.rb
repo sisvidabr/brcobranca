@@ -3,7 +3,7 @@
 module Brcobranca
   module Boleto
     # Classe base para todas as classes de boletos
-    class Base
+    class Base < TablelessModel
       extend Template::Base
 
       # Configura gerador de arquivo de boleto e código de barras.
@@ -13,7 +13,7 @@ module Brcobranca
       end
 
       # Validações do Rails 3
-      include ActiveModel::Validations
+      # include ActiveModel::Validations
 
       # <b>REQUERIDO</b>: Número do convênio/contrato do cliente junto ao banco emissor
       attr_accessor :convenio
@@ -82,7 +82,7 @@ module Brcobranca
 
       # Validações
       validates_presence_of :agencia, :conta_corrente, :moeda, :especie_documento, :especie, :aceite, :numero_documento, :message => 'não pode estar em branco.'
-      validates_numericality_of :convenio, :agencia, :conta_corrente, :numero_documento, :message => 'não é um número.', all:allow_nil =>ue
+      validates_numericality_of :convenio, :agencia, :conta_corrente, :numero_documento, :message => 'não é um número.', :allow_nil => true
 
       # Nova instancia da classe Base
       # @param [Hash] campos

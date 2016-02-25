@@ -3,7 +3,7 @@ require 'unidecoder'
 
 module Brcobranca
   module Remessa
-    class Base
+    class Base < TablelessModel
       # pagamentos da remessa (cada pagamento representa um registro detalhe no arquivo)
       attr_accessor :pagamentos
       # empresa mae (razao social)
@@ -21,8 +21,6 @@ module Brcobranca
       # aceite (A = ACEITO/N = NAO ACEITO)
       attr_accessor :aceite
 
-      # Validações do Rails 3
-      include ActiveModel::Validations
 
       validates_presence_of :pagamentos, :empresa_mae, :message => 'não pode estar em branco.'
 

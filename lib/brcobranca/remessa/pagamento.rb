@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
 module Brcobranca
   module Remessa
-    class Pagamento
-      # Validações do Rails 3
-      include ActiveModel::Validations
+    class Pagamento < TablelessModel
 
       # <b>REQUERIDO</b>: nosso numero
       attr_accessor :nosso_numero
@@ -73,7 +71,7 @@ module Brcobranca
         :cep_sacado, :cidade_sacado, :uf_sacado, :message => 'não pode estar em branco.'
       validates_length_of :cep_sacado, :is => 8, :message => 'deve ter 8 dígitos.'
       validates_length_of :cod_desconto, :is => 1, :message => 'deve ter 1 dígito.'
-      validates_length_of :especie_titulo, :is => 2, :message => 'deve ter 2 dígitos.', a:allow_blank =>true
+      validates_length_of :especie_titulo, :is => 2, :message => 'deve ter 2 dígitos.', :allow_blank =>true
       validates_length_of :identificacao_ocorrencia, :is => 2, :message => 'deve ter 2 dígitos.'
 
       # Nova instancia da classe Pagamento
