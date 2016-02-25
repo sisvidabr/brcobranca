@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'pry', '~> 0.10.0'
+  gem 'pry', '~> 0.9.12'
+  gem 'ruby18_source_location'
   # gem 'rubocop', '~> 0.36.0'
   # gem 'rubocop-rspec', '~> 1.3.0'
 end
