@@ -146,8 +146,11 @@ RSpec.describe Brcobranca::Remessa::Cnab240::Sicoob do
     it_behaves_like 'cnab240'
 
     context 'arquivo' do
-      before { Timecop.freeze(Time.local(2015, 7, 14, 16, 15, 15)) }
-      after { Timecop.return }
+      before do
+        now = Time.local(2015, 7, 14, 16, 15, 15)
+        allow(Time).to receive(:now) { now }
+      end
+      after { allow(Time).to receive(:now).and_call_original}
 
       it { expect(sicoob.gera_arquivo).to eq(read_remessa('remessa-bancoob-cnab240.rem', sicoob.gera_arquivo)) }
     end

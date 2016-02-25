@@ -185,8 +185,11 @@ RSpec.describe Brcobranca::Remessa::Cnab400::Bradesco do
     end
 
     context 'arquivo' do
-      before { Timecop.freeze(Time.local(2015, 7, 14, 16, 15, 15)) }
-      after { Timecop.return }
+      before do
+        now = Time.local(2015, 7, 14, 16, 15, 15)
+        allow(Time).to receive(:now) { now }
+      end
+      after { allow(Time).to receive(:now).and_call_original}
 
       it { expect(bradesco.gera_arquivo).to eq(read_remessa('remessa-bradesco-cnab400.rem', bradesco.gera_arquivo)) }
     end
