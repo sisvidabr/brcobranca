@@ -14,6 +14,6 @@ group :test do
   # gem 'codeclimate-test-reporter', :require => nil
   # gem 'coveralls', :require => false
   gem 'rspec'
-  gem 'rake'
+  gem 'rake' , '~> 10'
   gem 'timecop', '0.6.1'
 end
