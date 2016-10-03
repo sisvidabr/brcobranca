@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rghost_barcode', '~> 0.9'
   gem.add_dependency 'parseline', '~> 1.0.3'
   gem.add_dependency 'activerecord', '>= 2.3', '< 3.2'
-  gem.add_dependency 'i18n', '0.6.11'
+  gem.add_dependency 'i18n', '>= 0.5', '<= 0.6.11'
   gem.add_dependency 'rack-cache', '< 1.3'
   gem.add_development_dependency 'appraisal'
 
