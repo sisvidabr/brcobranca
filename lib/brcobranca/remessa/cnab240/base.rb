@@ -306,6 +306,14 @@ module Brcobranca
             contador += 1
             lote << monta_segmento_q(pagamento, nro_lote, contador)
             contador += 1
+            if self.respond_to?(:monta_segmento_r)
+              seg_r = monta_segmento_r(pagamento, nro_lote, contador)
+
+              if seg_r.present?
+                lote << seg_r
+                contador += 1
+              end
+            end
           end
           contador += 1 #trailer
 
