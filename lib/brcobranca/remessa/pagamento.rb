@@ -200,6 +200,9 @@ module Brcobranca
         format_value(valor_abatimento, tamanho)
       end
 
+      def formata_percentual_multa(tamanho = 4)
+        format_value(percentual_multa, tamanho)
+      end
       # Retorna a identificacao do pagador
       # Se for pessoa fisica (CPF com 11 digitos) é 1
       # Se for juridica (CNPJ com 14 digitos) é 2
