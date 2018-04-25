@@ -65,6 +65,21 @@ module Brcobranca
       attr_accessor :percentual_multa
       # <b>OPCIONAL</b>: Data para cobrança de multa
       attr_accessor :data_multa
+      attr_accessor :tipo_mora
+      # <b>OPCIONAL</b>: Data para cobrança de mora
+      attr_accessor :data_mora
+      # <b>OPCIONAL</b>: codigo dos juros
+      attr_accessor :codigo_juros
+      # <b>OPCIONAL</b>: codigo do protesto
+      attr_accessor :codigo_protesto
+      # <b>OPCIONAL</b>: dias para protesto
+      attr_accessor :dias_protesto
+      # <b>OPCIONAL</b>: codigo baixa
+      attr_accessor :codigo_baixa
+      # <b>OPCIONAL</b>: dias para baixa
+      attr_accessor :dias_baixa
+      # <b>OPCIONAL</b>: Número da Parcela
+      attr_accessor :parcela
 
       validates_presence_of :nosso_numero, :data_vencimento, :valor,
         :documento_sacado, :nome_sacado, :endereco_sacado,
