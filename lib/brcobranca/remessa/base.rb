@@ -20,6 +20,7 @@ module Brcobranca
       attr_accessor :sequencial_remessa
       # aceite (A = ACEITO/N = NAO ACEITO)
       attr_accessor :aceite
+      attr_accessor :documento_cedente
 
 
       validates_presence_of :pagamentos, :empresa_mae, :message => 'não pode estar em branco.'
