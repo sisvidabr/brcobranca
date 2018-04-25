@@ -27,7 +27,7 @@ module Brcobranca
         #
         attr_accessor :tipo_cobranca
 
-        validates_presence_of :agencia, :conta_corrente, :convenio, :variacao_carteira, :documento_cedente, message: 'não pode estar em branco.'
+        validates_presence_of :agencia, :conta_corrente, :convenio, :variacao_carteira, :documento_cedente, :message => 'não pode estar em branco.'
 
         validates_length_of :agencia, :maximum => 4, :message => 'deve ser igual a 4 digítos.'
         validates_length_of :conta_corrente, :maximum => 8, message => 'deve ser menor ou igual a 8 dígitos.'
