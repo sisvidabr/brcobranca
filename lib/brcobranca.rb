@@ -130,6 +130,7 @@ module Brcobranca
       autoload :Base, 'brcobranca/retorno/cnab400/base'
       autoload :Bradesco, 'brcobranca/retorno/cnab400/bradesco'
       autoload :Itau, 'brcobranca/retorno/cnab400/itau'
+      autoload :BancoBrasil, 'brcobranca/retorno/cnab400/banco_brasil'
     end
 
     module Cnab240

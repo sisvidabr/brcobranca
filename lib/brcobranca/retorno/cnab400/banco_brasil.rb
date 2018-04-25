@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-#
 module Brcobranca
   module Retorno
     module Cnab400
