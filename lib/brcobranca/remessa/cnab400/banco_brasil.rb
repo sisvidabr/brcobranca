@@ -30,7 +30,7 @@ module Brcobranca
         validates_presence_of :agencia, :conta_corrente, :convenio, :variacao_carteira, :documento_cedente, :message => 'não pode estar em branco.'
 
         validates_length_of :agencia, :maximum => 4, :message => 'deve ser igual a 4 digítos.'
-        validates_length_of :conta_corrente, :maximum => 8, message => 'deve ser menor ou igual a 8 dígitos.'
+        validates_length_of :conta_corrente, :maximum => 8, :message => 'deve ser menor ou igual a 8 dígitos.'
         validates_length_of :variacao_carteira, :is => 3, :message => 'deve ser igual a 3 digítos.'
         validates_length_of :carteira, :is => 2, :message => 'deve ser igual a 2 digítos.'
         validates_length_of :documento_cedente, :minimum => 11, :maximum => 14, :message => 'deve ter entre 11 e 14 dígitos.'
