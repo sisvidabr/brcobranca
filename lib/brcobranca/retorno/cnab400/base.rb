@@ -17,10 +17,8 @@ module Brcobranca
             Brcobranca::Retorno::Cnab400::BancoBrasil.load_lines(file, options)
           when "237"
             Brcobranca::Retorno::Cnab400::Bradesco.load_lines(file, options)
-
           when "341"
             Brcobranca::Retorno::Cnab400::Itau.load_lines(file, options)
-
           else
             Brcobranca::Retorno::RetornoCnab400.load_lines(file, options)
           end
