@@ -223,6 +223,7 @@ module Brcobranca
           doc.show boleto.instrucao5
           doc.moveto :x => '0.7 cm', :y => '10.7 cm'
           doc.show boleto.instrucao6
+          doc.image boleto.qrcode_file, :x => '23.5 cm', :y => '19.8 cm', :zoom => 40
           doc.moveto :x => '1.2 cm', :y => '8.8 cm'
           doc.show "#{boleto.sacado} - CPF/CNPJ: #{boleto.sacado_documento.formata_documento}" if boleto.sacado && boleto.sacado_documento
           doc.moveto :x => '1.2 cm', :y => '8.4 cm'
