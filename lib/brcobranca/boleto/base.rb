@@ -79,6 +79,8 @@ module Brcobranca
       attr_accessor :avalista_documento
       # <b>OPCIONAL</b>: Endereço da pessoa que envia o boleto
       attr_accessor :cedente_endereco
+      # <b>OPCIONAL</b>: Arquivo com o QR Code do boleto para pagamento via Pix
+      attr_accessor :qrcode_file
 
       # Validações
       validates_presence_of :agencia, :conta_corrente, :moeda, :especie_documento, :especie, :aceite, :numero_documento, :message => 'não pode estar em branco.'
