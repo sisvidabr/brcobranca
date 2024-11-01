@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.1.12
+- Reinicia a contagem do fator de vencimento ao ultrapassar 9999
+
 ## 6.1.0
 - Adicionado Banestes
 - Limpeza e formatação de strings de acordo com o tamanho permitido por cada banco
